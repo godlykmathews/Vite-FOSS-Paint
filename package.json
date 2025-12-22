@@ -1,0 +1,45 @@
+{
+  "name": "foss-paint",
+  "version": "1.0.0",
+  "description": "A FOSS MS Paint clone built with Electron",
+  "main": "dist-electron/main.js",
+  "homepage": "./",
+  "scripts": {
+    "prebuild": "mkdir -p dist-electron && cp main.js preload.js dist-electron/",
+    "dev": "vite",
+    "build": "vite build && electron-builder",
+    "build:win": "vite build && electron-builder --win",
+    "build:linux": "vite build && electron-builder --linux",
+    "build:mac": "vite build && electron-builder --mac",
+    "electron": "electron .",
+    "electron:dev": "vite build && electron main.js"
+  },
+  "build": {
+    "appId": "com.foss.fosspaint",
+    "productName": "FOSS PAINT",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist-electron",
+      "dist"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "mac": {
+      "target": "dmg"
+    }
+  },
+  "devDependencies": {
+    "electron": "^25.0.0",
+    "electron-builder": "^24.0.0",
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "lucide": "^0.562.0"
+  }
+}

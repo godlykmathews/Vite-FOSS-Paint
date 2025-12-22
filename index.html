@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FOSS PAINT</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <!-- Title Bar Removed -->
+
+    <!-- Ribbon Tabs -->
+    <div class="ribbon-tabs">
+      <button class="tab active">Home</button>
+      <button class="tab">View</button>
+    </div>
+
+    <!-- Ribbon -->
+    <div class="ribbon">
+      <!-- Home Tab Content -->
+      <div
+        id="home-tab-content"
+        class="tab-content active"
+        style="display: flex; height: 100%"
+      >
+        <!-- File Group (Moved from Titlebar) -->
+        <div class="group">
+          <div class="group-content file-group">
+            <div class="small-tools-col">
+              <button class="small-tool-btn" id="save-btn" title="Save">
+                <i data-lucide="save" width="16" height="16"></i> Save
+              </button>
+              <button class="small-tool-btn" id="undo-btn" title="Undo">
+                <i data-lucide="undo-2" width="16" height="16"></i> Undo
+              </button>
+              <button class="small-tool-btn" id="redo-btn" title="Redo">
+                <i data-lucide="redo-2" width="16" height="16"></i> Redo
+              </button>
+            </div>
+          </div>
+          <div class="group-title">File</div>
+        </div>
+
+        <!-- Clipboard Group -->
+        <div class="group">
+          <div class="group-content clipboard-group">
+            <div class="paste-btn-container">
+              <button class="big-tool-btn" id="paste-btn" title="Paste">
+                <span class="icon"
+                  ><i data-lucide="clipboard-paste" width="24" height="24"></i
+                ></span>
+                <span class="label">Paste</span>
+              </button>
+            </div>
+            <div class="small-tools-col">
+              <button class="small-tool-btn" id="cut-btn" title="Cut">
+                <i data-lucide="scissors" width="14" height="14"></i> Cut
+              </button>
+              <button class="small-tool-btn" id="copy-btn" title="Copy">
+                <i data-lucide="copy" width="14" height="14"></i> Copy
+              </button>
+            </div>
+          </div>
+          <div class="group-title">Clipboard</div>
+        </div>
+
+        <!-- Image Group -->
+        <div class="group">
+          <div class="group-content image-group">
+            <button class="big-tool-btn" id="select-btn" title="Select">
+              <span class="icon"
+                ><i data-lucide="box-select" width="24" height="24"></i
+              ></span>
+              <span class="label">Select</span>
+            </button>
+            <div class="small-tools-col">
+              <button class="small-tool-btn" id="resize-btn" title="Resize">
+                <i data-lucide="maximize" width="14" height="14"></i> Resize
+              </button>
+              <button class="small-tool-btn" id="rotate-btn" title="Rotate">
+                <i data-lucide="rotate-cw" width="14" height="14"></i> Rotate
+              </button>
+            </div>
+          </div>
+          <div class="group-title">Image</div>
+        </div>
+
+        <!-- Tools Group -->
+        <div class="group">
+          <div class="group-content tools-group">
+            <div class="tool-grid">
+              <button id="pencil" class="tool-icon active" title="Pencil">
+                <i data-lucide="pencil" width="16" height="16"></i>
+              </button>
+              <button id="fill" class="tool-icon" title="Fill with color">
+                <i data-lucide="paint-bucket" width="16" height="16"></i>
+              </button>
+              <button id="text" class="tool-icon" title="Text">
+                <i data-lucide="type" width="16" height="16"></i>
+              </button>
+              <button id="eraser" class="tool-icon" title="Eraser">
+                <i data-lucide="eraser" width="16" height="16"></i>
+              </button>
+              <button id="eyedropper" class="tool-icon" title="Color picker">
+                <i data-lucide="pipette" width="16" height="16"></i>
+              </button>
+              <button id="magnifier" class="tool-icon" title="Magnifier">
+                <i data-lucide="search" width="16" height="16"></i>
+              </button>
+            </div>
+          </div>
+          <div class="group-title">Tools</div>
+        </div>
+
+        <!-- Brushes Group -->
+        <div class="group">
+          <div class="group-content" style="position: relative">
+            <button id="brush" class="big-tool-btn" title="Brushes">
+              <span class="icon"
+                ><i data-lucide="brush" width="24" height="24"></i
+              ></span>
+              <span class="label"
+                >Brushes
+                <i data-lucide="chevron-down" width="10" height="10"></i
+              ></span>
+            </button>
+            <div
+              id="brushes-dropdown"
+              class="dropdown-menu"
+              style="
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background: white;
+                border: 1px solid #a0a0a0;
+                z-index: 100;
+                width: 150px;
+                padding: 5px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+              "
+            >
+              <div
+                class="dropdown-item"
+                style="
+                  padding: 5px;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  gap: 5px;
+                "
+              >
+                <i data-lucide="brush" width="14" height="14"></i> Default Brush
+              </div>
+              <div
+                class="dropdown-item"
+                style="
+                  padding: 5px;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  gap: 5px;
+                "
+              >
+                <i data-lucide="pen-tool" width="14" height="14"></i>
+                Calligraphy 1
+              </div>
+              <div
+                class="dropdown-item"
+                style="
+                  padding: 5px;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  gap: 5px;
+                "
+              >
+                <i data-lucide="pen-tool" width="14" height="14"></i>
+                Calligraphy 2
+              </div>
+              <div
+                class="dropdown-item"
+                style="
+                  padding: 5px;
+                  cursor: pointer;
+                  display: flex;
+                  align-items: center;
+                  gap: 5px;
+                "
+              >
+                <i data-lucide="spray-can" width="14" height="14"></i> Airbrush
+              </div>
+            </div>
+          </div>
+          <div class="group-title">Brushes</div>
+        </div>
+
+        <!-- Shapes Group -->
+        <div class="group">
+          <div class="group-content shapes-group">
+            <div class="shapes-grid">
+              <button id="line" class="shape-tool" title="Line">
+                <i data-lucide="minus" width="20" height="20"></i>
+              </button>
+              <button id="curve" class="shape-tool" title="Curve">
+                <i data-lucide="spline" width="20" height="20"></i>
+              </button>
+              <button id="circle" class="shape-tool" title="Oval">
+                <i data-lucide="circle" width="20" height="20"></i>
+              </button>
+              <button id="rectangle" class="shape-tool" title="Rectangle">
+                <i
+                  data-lucide="rectangle-horizontal"
+                  width="20"
+                  height="20"
+                ></i>
+              </button>
+              <button
+                id="rounded-rect"
+                class="shape-tool"
+                title="Rounded Rectangle"
+              >
+                <i data-lucide="square" width="20" height="20"></i>
+              </button>
+              <button id="polygon" class="shape-tool" title="Polygon">
+                <i data-lucide="hexagon" width="20" height="20"></i>
+              </button>
+              <button id="triangle" class="shape-tool" title="Triangle">
+                <i data-lucide="triangle" width="20" height="20"></i>
+              </button>
+            </div>
+            <div class="shape-options">
+              <button class="small-tool-btn">Outline</button>
+              <button class="small-tool-btn">Fill</button>
+            </div>
+          </div>
+          <div class="group-title">Shapes</div>
+        </div>
+
+        <!-- Size Group -->
+        <div class="group">
+          <div class="group-content">
+            <div class="size-selector">
+              <button class="big-tool-btn" id="size-menu-btn">
+                <span class="icon"><i data-lucide="menu"></i></span>
+                <span class="label">Size</span>
+              </button>
+              <!-- Hidden range for functionality -->
+              <input
+                type="range"
+                id="size"
+                min="1"
+                max="30"
+                value="2"
+                style="display: none"
+              />
+            </div>
+          </div>
+          <div class="group-title">Size</div>
+        </div>
+
+        <!-- Colors Group -->
+        <div class="group">
+          <div class="group-content colors-group">
+            <div class="active-colors">
+              <div class="color-box active" id="color1-box">
+                <div
+                  class="color-preview"
+                  id="color1-preview"
+                  style="background-color: black"
+                ></div>
+                <div class="color-label">Color 1</div>
+              </div>
+              <div class="color-box" id="color2-box">
+                <div
+                  class="color-preview"
+                  id="color2-preview"
+                  style="background-color: white"
+                ></div>
+                <div class="color-label">Color 2</div>
+              </div>
+            </div>
+            <div class="color-palette">
+              <div class="palette-row">
+                <button
+                  class="color-swatch"
+                  data-color="#000000"
+                  style="background-color: #000000"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#7F7F7F"
+                  style="background-color: #7f7f7f"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#880015"
+                  style="background-color: #880015"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#ED1C24"
+                  style="background-color: #ed1c24"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#FF7F27"
+                  style="background-color: #ff7f27"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#FFF200"
+                  style="background-color: #fff200"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#22B14C"
+                  style="background-color: #22b14c"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#00A2E8"
+                  style="background-color: #00a2e8"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#3F48CC"
+                  style="background-color: #3f48cc"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#A349A4"
+                  style="background-color: #a349a4"
+                ></button>
+              </div>
+              <div class="palette-row">
+                <button
+                  class="color-swatch"
+                  data-color="#FFFFFF"
+                  style="background-color: #ffffff"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#C3C3C3"
+                  style="background-color: #c3c3c3"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#B97A57"
+                  style="background-color: #b97a57"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#FFAEC9"
+                  style="background-color: #ffaec9"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#FFC90E"
+                  style="background-color: #ffc90e"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#EFE4B0"
+                  style="background-color: #efe4b0"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#B5E61D"
+                  style="background-color: #b5e61d"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#99D9EA"
+                  style="background-color: #99d9ea"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#7092BE"
+                  style="background-color: #7092be"
+                ></button>
+                <button
+                  class="color-swatch"
+                  data-color="#C8BFE7"
+                  style="background-color: #c8bfe7"
+                ></button>
+              </div>
+            </div>
+            <div class="edit-colors">
+              <button class="big-tool-btn" id="edit-colors-btn">
+                <span class="icon">🌈</span>
+                <span class="label">Edit<br />colors</span>
+              </button>
+              <input
+                type="color"
+                id="colorPicker"
+                style="visibility: hidden; position: absolute"
+              />
+            </div>
+          </div>
+          <div class="group-title">Colors</div>
+        </div>
+      </div>
+      <!-- End Home Tab Content -->
+
+      <!-- View Tab Content -->
+      <div
+        id="view-tab-content"
+        class="tab-content"
+        style="display: none; height: 100%"
+      >
+        <!-- Zoom Group -->
+        <div class="group">
+          <div class="group-content zoom-group">
+            <div class="small-tools-col">
+              <button class="small-tool-btn" id="zoom-in-btn" title="Zoom In">
+                <i data-lucide="zoom-in" width="16" height="16"></i> In
+              </button>
+              <button class="small-tool-btn" id="zoom-out-btn" title="Zoom Out">
+                <i data-lucide="zoom-out" width="16" height="16"></i> Out
+              </button>
+              <button class="small-tool-btn" id="reset-zoom-btn" title="100%">
+                <i data-lucide="maximize" width="16" height="16"></i> 100%
+              </button>
+            </div>
+          </div>
+          <div class="group-title">Zoom</div>
+        </div>
+        <!-- Show or hide -->
+        <div class="group">
+          <div class="group-content">
+            <div class="small-tools-col" style="align-items: flex-start">
+              <label style="display: flex; gap: 5px; font-size: 11px"
+                ><input type="checkbox" checked /> Status bar</label
+              >
+              <label style="display: flex; gap: 5px; font-size: 11px"
+                ><input type="checkbox" /> Gridlines</label
+              >
+              <label style="display: flex; gap: 5px; font-size: 11px"
+                ><input type="checkbox" /> Rulers</label
+              >
+            </div>
+          </div>
+          <div class="group-title">Show or hide</div>
+        </div>
+      </div>
+      <!-- End View Tab Content -->
+    </div>
+
+    <div class="workspace">
+      <canvas id="canvas" width="800" height="600"></canvas>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-item" id="status-coords"></div>
+      <div class="status-item" id="status-size">800 x 600px</div>
+      <div class="status-item" id="status-zoom">100%</div>
+    </div>
+
+    <script type="module" src="./src/renderer.js"></script>
+  </body>
+</html>
