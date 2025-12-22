@@ -1,7 +1,7 @@
 {
-  "name": "foss-paint",
+  "name": "vite-foss-paint",
   "version": "1.0.0",
-  "description": "A FOSS MS Paint clone built with Electron",
+  "description": "A VITE FOSS paint application built with Electron",
   "main": "dist-electron/main.js",
   "homepage": "./",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "build": {
     "appId": "com.foss.fosspaint",
-    "productName": "FOSS PAINT",
+    "productName": "VITE FOSS PAINT",
     "directories": {
       "output": "dist"
     },
