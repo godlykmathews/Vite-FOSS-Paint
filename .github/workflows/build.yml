@@ -1,0 +1,45 @@
+name: Build and Release Electron App
+
+on:
+  push:
+    branches:
+      - main  # Change this if your default branch is 'master'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        # This will run two separate builds in parallel
+        os: [windows-latest, macos-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build and Package
+        # This runs your build script and uses electron-builder to package
+        # We pass the GitHub Token so it can upload the draft release
+        run: npm run electron:build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: installers-${{ matrix.os }}
+          path: dist/*.exe  # For Windows
+          # path: dist/*.dmg # You can add multiple paths or use wildcards
