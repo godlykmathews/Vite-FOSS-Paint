@@ -74,6 +74,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 **Godly K Mathews** GitHub: [@godlykmathews](https://github.com/godlykmathews)
 
-Portfolio: [godlykmathews.github.io](https://godlykmathews.github.io/)
+Portfolio: [godly.vercel.app](https://godly.vercel.app/)
 
 ---
